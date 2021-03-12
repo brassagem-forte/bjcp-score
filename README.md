@@ -4,7 +4,7 @@ Just another simple app to our beloved supporters.
 
 ## About BJCP Score
 
-Somewhere back in time, Henrique Boaventura (@kidh0) thought it was a good idea to start a competition with Estevão Chittó to decide which one of them would finish first to brew all the BJCP styles. Bad, very bad idead.
+Somewhere back in time, Henrique Boaventura (@kidh0) thought it was a good idea to start a competition with Estevão Chittó to decide which one of them would finish first to brew all the BJCP styles. Bad, very bad idea.
 
 It grew up to the point of many people willing to do the same and now I built a system to simplify.
 
@@ -22,6 +22,7 @@ We make weekly reports on our podcast [Brassagem Forte](http://www.brassagemfort
 - Ok, clone the repo
 - `composer install`
 - `npm install && npm run dev`
+- `php artisan db:seed --class=Styles`
 - `php artisan serve`
 
 ## Testing
@@ -30,7 +31,7 @@ We make weekly reports on our podcast [Brassagem Forte](http://www.brassagemfort
 
 ## Contributing
 
-Do what ever you want, reade the Code of Conduct and make a PR.
+Do what ever you want, read the Code of Conduct and make a PR.
 
 ## Code of Conduct
 
