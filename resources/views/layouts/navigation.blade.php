@@ -18,6 +18,12 @@
                     </x-nav-link>
                 </div>
                 @endif
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('ranking')" :active="request()->routeIs('ranking')">
+                        Ranking
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -76,6 +82,9 @@
                 Lista de estilos
             </x-responsive-nav-link>
             @endif
+            <x-responsive-nav-link :href="route('ranking')" :active="request()->routeIs('ranking')">
+                Ranking
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

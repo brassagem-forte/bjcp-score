@@ -27,7 +27,7 @@
                             <tbody>
                                 @foreach($categories as $category)
                                 <tr class="border-b hover:bg-gray-50">
-                                    <td colspan="2" class="text-3xl p-2">{{ $category->name }}</td>
+                                    <td colspan="2" class="text-3xl p-2">{{ $category->id }}.{{ $category->name }}</td>
                                 </tr>
                                 @foreach($category->styles as $style)
                                 <tr class="border-b">

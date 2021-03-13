@@ -17,7 +17,10 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('/ranking', [App\Http\Controllers\Dashboard::class, 'ranking'])->name('ranking');
+
 Route::get('/{id}/{slug}', [App\Http\Controllers\Dashboard::class, 'show'])->name('show');
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Dashboard::class, 'index'])->name('dashboard');
