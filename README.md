@@ -20,12 +20,19 @@ We make weekly reports on our podcast [Brassagem Forte](http://www.brassagemfort
 ## How to run
 
 - Ok, clone the repo
-- `composer install`
-- `npm install && npm run dev`
-- Copy .env file `cp .env.example .env`
-- Generate API Key `php artisan key:generate`
-- `php artisan db:seed --class=Styles`
-- `php artisan serve`
+- From the root dir:
+  - Install the required libs:
+    - `composer install`
+    - `npm install && npm run dev`
+  - Copy .env file
+    - `cp .env.example .env`
+  - Generate API Key
+    - `php artisan key:generate`
+- Database things:
+  - `touch datatabase/database.sqlite`
+  - `php artisan db:seed --class=Styles`
+- Run Forrest, run:
+  - `php artisan serve`
 
 ## Testing
 
