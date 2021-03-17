@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class Dashboard extends Controller
 {
 
-    function index()
+    public function index()
     {
         $user = User::find(\Auth::user()->id);
         $categories = Category::with('styles')->get();
@@ -49,5 +49,20 @@ class Dashboard extends Controller
              ->get();
 
         return view('ranking', compact('users'));
+    }
+
+    public function compare(Request $request, $user1, $user2)
+    {
+        $users = [];
+        foreach(User::whereIn('id', [$user1,$user2])->get() as $user) {
+            $data = new \StdClass();
+            $data->info = $user;
+            $data->styles = $user->styles()->pluck('style_id');
+            $users[] = $data;
+        }
+        $categories = Category::with('styles')->get();
+        $stylesCount = Style::count();
+
+        return view('compare', compact('users', 'categories', 'stylesCount'));
     }
 }
