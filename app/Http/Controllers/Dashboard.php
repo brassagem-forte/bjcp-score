@@ -51,18 +51,23 @@ class Dashboard extends Controller
         return view('ranking', compact('users'));
     }
 
-    public function compare(Request $request, $user1, $user2)
+    public function compare(Request $request)
     {
-        $users = [];
-        foreach(User::whereIn('id', [$user1,$user2])->get() as $user) {
+
+        $users = User::orderBy('name')->get();
+        $compareUsers = [];
+        foreach(User::whereIn('id', $request->query('user', [1,2]))->get() as $user) {
             $data = new \StdClass();
             $data->info = $user;
             $data->styles = $user->styles()->pluck('style_id');
-            $users[] = $data;
+            $compareUsers[] = $data;
+        }
+        if(count($compareUsers) == 1) {
+            $compareUsers[1] = $compareUsers[0];
         }
         $categories = Category::with('styles')->get();
         $stylesCount = Style::count();
 
-        return view('compare', compact('users', 'categories', 'stylesCount'));
+        return view('compare', compact('users', 'compareUsers', 'categories', 'stylesCount'));
     }
 }

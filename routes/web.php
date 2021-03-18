@@ -17,7 +17,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/vs/{user1}/{user2}', [App\Http\Controllers\Dashboard::class, 'compare'])->name('compare');
+Route::get('/vs', [App\Http\Controllers\Dashboard::class, 'compare'])->name('compare');
 Route::get('/ranking', [App\Http\Controllers\Dashboard::class, 'ranking'])->name('ranking');
 
 Route::get('/{id}/{slug}', [App\Http\Controllers\Dashboard::class, 'show'])->name('show');

@@ -24,6 +24,12 @@
                         Ranking
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('compare')" :active="request()->routeIs('compare')">
+                        Vs.
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -84,6 +90,9 @@
             @endif
             <x-responsive-nav-link :href="route('ranking')" :active="request()->routeIs('ranking')">
                 Ranking
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('compare')" :active="request()->routeIs('compare')">
+                Vs.
             </x-responsive-nav-link>
         </div>
 
