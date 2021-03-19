@@ -51,4 +51,11 @@ class User extends Authenticatable
     {
         return \Str::slug($this->name);
     }
+
+    public function getFirstNameAttribute()
+    {
+        $name = explode(' ', $this->name);
+
+        return $name[0];
+    }
 }

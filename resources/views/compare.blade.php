@@ -30,7 +30,7 @@
                         <thead>
                             <td></td>
                             @foreach($compareUsers as $user)
-                            <td>{{ $user->info->name }}</td>
+                            <td class="text-center">{{ $user->info->first_name }}</td>
                             @endforeach
                         </thead>
                         <tbody>
@@ -40,9 +40,9 @@
                             </tr>
                             @foreach($category->styles as $style)
                             <tr class="border-b">
-                                <td class="pl-10 p-2">{{ $style->code }}. {{ $style->name }}</td>
+                                <td class="md:pl-10 p-2">{{ $style->code }}. {{ $style->name }}</td>
                                 @foreach($compareUsers as $user)
-                                <td class="pl-10 text-right pr-2">
+                                <td class="text-right pr-2">
                                     <input type="checkbox" name="style[]" value="{{ $style->id }}" @if($user->styles->contains($style->id)) checked="checked" @endif disabled="disabled" class="rounded text-gray-500 h-6 w-6" />
                                 </td>
                                 @endforeach
