@@ -13,7 +13,7 @@
                         @foreach($users as $i => $user)
                         <li class="text-{{ 6-$i > 1 ? 6-$i : '' }}xl border-b border-gray-200 p-2">
                             <a href="{{ route('show', [$user->id, Str::slug($user->name)]) }}">
-                            {{ $user->name }}: <span class="float-right">{{ $user->total }}</span>
+                            {{ $user->name }}: <span class="md:float-right">{{ $user->total }}</span>
                             </a>
                         </li>
                         @endforeach
