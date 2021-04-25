@@ -97,6 +97,7 @@
         </div>
 
         <!-- Responsive Settings Options -->
+        @if(Auth::check())
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="flex items-center px-4">
                 <div class="flex-shrink-0">
@@ -106,10 +107,8 @@
                 </div>
 
                 <div class="ml-3">
-                    @if(Auth::check())
                     <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                     <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-                    @endif
                 </div>
             </div>
 
@@ -126,5 +125,6 @@
                 </form>
             </div>
         </div>
+        @endif
     </div>
 </nav>
