@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Route::get('/vs', [App\Http\Controllers\Dashboard::class, 'compare'])->name('compare');
 Route::get('/ranking', [App\Http\Controllers\Dashboard::class, 'ranking'])->name('ranking');
+Route::get('/ranking/chart', [App\Http\Controllers\Dashboard::class, 'chart'])->name('chart');
 
 Route::get('/{id}/{slug}', [App\Http\Controllers\Dashboard::class, 'show'])->name('show');
 

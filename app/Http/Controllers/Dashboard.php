@@ -70,4 +70,19 @@ class Dashboard extends Controller
 
         return view('compare', compact('users', 'compareUsers', 'categories', 'stylesCount'));
     }
+
+    public function chart()
+    {
+        $data = DB::table('style_user')
+             ->select(DB::raw('styles.name, count(1) as total'))
+             ->join('styles', 'styles.id', 'style_user.style_id')
+             ->orderBy('total', 'desc')
+             ->groupBy('styles.name')
+             ->get();
+
+        return response()->json([
+            'style' => $data->pluck('name'),
+            'count' => $data->pluck('total'),
+        ]);
+    }
 }
