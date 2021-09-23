@@ -20,7 +20,7 @@
             </div>
             <div class="my-5 bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                 <h3 class="font-semibold text-xl text-gray-800 leading-tight">Estilos</h3>
-                <div class="chart-container" style="position: relative; height:130vh; width:100%">
+                <div class="chart-container" style="position: relative; height:230vh; width:100%">
                     <canvas id="chart"></canvas>
                 </div>
             </div>
