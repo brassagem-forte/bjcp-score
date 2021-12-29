@@ -10,7 +10,7 @@
                 <h3 class="font-semibold text-xl text-gray-800 leading-tight">Usuários</h3>
                 <ol class="list-decimal list-inside">
                     @foreach($users as $i => $user)
-                    <li class="text-{{ 4-$i > 1 ? 4-$i : '' }}xl border-b border-gray-200 p-2">
+                    <li class="text-{{ 3-$i > 1 ? 3-$i : '' }}xl border-b border-gray-200 p-2">
                         <a href="{{ route('show', [$user->id, Str::slug($user->name)]) }}">
                         {{ $user->name }}: <span class="md:float-right">{{ $user->total }}</span>
                         </a>
@@ -20,11 +20,9 @@
             </div>
             <div class="my-5 bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                 <h3 class="font-semibold text-xl text-gray-800 leading-tight">Estilos</h3>
-                <div class="chart-container" style="position: relative; height:130vh; width:100%">
+                <div class="chart-container" style="position: relative; height:230vh; width:100%">
                     <canvas id="chart"></canvas>
                 </div>
-
-
             </div>
         </div>
     </div>

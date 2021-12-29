@@ -21,11 +21,11 @@ Route::get('/vs', [App\Http\Controllers\Dashboard::class, 'compare'])->name('com
 Route::get('/ranking', [App\Http\Controllers\Dashboard::class, 'ranking'])->name('ranking');
 Route::get('/ranking/chart', [App\Http\Controllers\Dashboard::class, 'chart'])->name('chart');
 
-Route::get('/{id}/{slug}', [App\Http\Controllers\Dashboard::class, 'show'])->name('show');
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Dashboard::class, 'index'])->name('dashboard');
     Route::put('/store', [App\Http\Controllers\Dashboard::class, 'store'])->name('store');
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/{id}/{slug}', [App\Http\Controllers\Dashboard::class, 'show'])->name('show');
