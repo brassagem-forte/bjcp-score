@@ -14,9 +14,7 @@ class Dashboard extends Controller
     public function index()
     {
         $user = User::find(\Auth::user()->id);
-        $categories = Category::with(['styles' => function ($query) {
-            $query->orderBy('code', 'asc');
-        }])->orderBy('categories.id','asc')->get();
+        $categories = Category::orderedWithStyles()->get();
         $stylesCount = Style::count();
         $userStyles = $user->styles()->pluck('style_id');
 
@@ -26,7 +24,7 @@ class Dashboard extends Controller
     public function show(Request $request, $userId, $slug)
     {
         $user = User::findOrFail($userId);
-        $categories = Category::with('styles')->get();
+        $categories = Category::orderedWithStyles()->get();
         $stylesCount = Style::count();
         $userStyles = $user->styles()->pluck('style_id');
 
@@ -67,9 +65,7 @@ class Dashboard extends Controller
         if(count($compareUsers) == 1) {
             $compareUsers[1] = $compareUsers[0];
         }
-        $categories = Category::with(['styles' => function ($query) {
-            $query->orderBy('code', 'asc');
-        }])->orderBy('categories.id', 'asc')->get();
+        $categories = Category::orderedWithStyles()->get();
         $stylesCount = Style::count();
 
         return view('compare', compact('users', 'compareUsers', 'categories', 'stylesCount'));
