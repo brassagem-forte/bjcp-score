@@ -28,10 +28,22 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <table class="border-collapse w-full">
                         <thead>
-                            <td></td>
-                            @foreach($compareUsers as $user)
-                            <td class="text-center">{{ $user->info->first_name }}</td>
-                            @endforeach
+                            <tr>
+                                <th></th>
+                                @foreach($compareUsers as $user)
+                                <th class="text-center">
+                                    {{ $user->info->first_name }}
+                                </th>
+                                @endforeach
+                            </tr>
+                            <tr>
+                                <th class="text-right">Estilos brassados de {{ $stylesCount }}:</th>
+                                @foreach($compareUsers as $user)
+                                <th class="text-center">
+                                    {{ $user->styles->count() }}
+                                </th>
+                                @endforeach
+                            </tr>
                         </thead>
                         <tbody>
                             @foreach($categories as $category)
@@ -42,7 +54,7 @@
                             <tr class="border-b">
                                 <td class="md:pl-10 p-2">{{ $style->code }}. {{ $style->name }}</td>
                                 @foreach($compareUsers as $user)
-                                <td class="text-right pr-2">
+                                <td class="text-center pr-2">
                                     <input type="checkbox" name="style[]" value="{{ $style->id }}" @if($user->styles->contains($style->id)) checked="checked" @endif disabled="disabled" class="rounded text-gray-500 h-6 w-6" />
                                 </td>
                                 @endforeach
