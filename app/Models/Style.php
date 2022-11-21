@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 
 class Style extends Model
 {
@@ -18,5 +17,10 @@ class Style extends Model
     public function users()
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function medals()
+    {
+        return $this->hasMany(Medal::class);
     }
 }

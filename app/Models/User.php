@@ -47,6 +47,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Style::class);
     }
 
+    public function medals()
+    {
+        return $this->hasMany(Medal::class);
+    }
+
     public function getSlugAttribute()
     {
         return \Str::slug($this->name);

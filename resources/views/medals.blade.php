@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Lista de estilos
+            Lista de medalhas
         </h2>
     </x-slot>
 
@@ -10,7 +10,7 @@
             @if (session('status'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 mb-3 rounded relative" role="alert">
                 <strong class="font-bold">Feito!</strong>
-                <span class="block sm:inline">Lista de estilos atualizada.</span>
+                <span class="block sm:inline">Medalha adicionada.</span>
             </div>
             @endif
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3">
@@ -31,12 +31,7 @@
                                 </tr>
                                 @foreach($category->styles as $style)
                                 <tr class="border-b">
-                                    <td class="pl-10 p-2">
-                                        {{ $style->code }}. {{ $style->name }}
-                                        @foreach($userMedals->where('style_id', $style->id)->all() as $medal)
-                                        {{ $medal->icon }}
-                                        @endforeach
-                                    </td>
+                                    <td class="pl-10 p-2">{{ $style->code }}. {{ $style->name }}</td>
                                     <td class="pl-10 text-right pr-2">
                                         <input type="checkbox" name="style[]" value="{{ $style->id }}" @if($userStyles->contains($style->id)) checked="checked" @endif class="rounded text-gray-500 h-6 w-6" />
                                     </td>

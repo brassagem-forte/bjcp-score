@@ -17,8 +17,9 @@ class Dashboard extends Controller
         $categories = Category::orderedWithStyles()->get();
         $stylesCount = Style::count();
         $userStyles = $user->styles()->pluck('style_id');
+        $userMedals = $user->medals()->get();
 
-        return view('dashboard', compact('user', 'categories', 'stylesCount', 'userStyles'));
+        return view('dashboard', compact('user', 'categories', 'stylesCount', 'userStyles', 'userMedals'));
     }
 
     public function show(Request $request, $userId, $slug)
@@ -84,5 +85,10 @@ class Dashboard extends Controller
             'style' => $data->pluck('name'),
             'count' => $data->pluck('total'),
         ]);
+    }
+
+    public function medals()
+    {
+        return view('medals');
     }
 }
