@@ -20,6 +20,7 @@ Route::get('/', function () {
 Route::get('/vs', [App\Http\Controllers\Dashboard::class, 'compare'])->name('compare');
 Route::get('/ranking', [App\Http\Controllers\Dashboard::class, 'ranking'])->name('ranking');
 Route::get('/ranking/chart', [App\Http\Controllers\Dashboard::class, 'chart'])->name('chart');
+Route::get('/year/chart', [App\Http\Controllers\Dashboard::class, 'yearChart'])->name('yearChart');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Dashboard::class, 'index'])->name('dashboard');

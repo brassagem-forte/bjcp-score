@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Style;
 use App\Models\User;
+use DateTime;
 use Illuminate\Support\Facades\DB;
 
 class Dashboard extends Controller
@@ -85,6 +86,32 @@ class Dashboard extends Controller
             'style' => $data->pluck('name'),
             'count' => $data->pluck('total'),
         ]);
+    }
+
+    public function yearChart()
+    {
+        $data = DB::table('style_user')
+            ->select(DB::raw('DATE_FORMAT(created_at, "%Y-%m-01") as date, count(1) as total'))
+            ->orderBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-01")'))
+            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-01")'))
+            ->where('user_id', \Auth::user()->id)
+            ->get();
+
+        $startDate = new DateTime('2023-01-01');
+        $endDate = new DateTime();
+
+        $return = [
+            'date' => [],
+            'total' => [],
+        ];
+
+        while($startDate < $endDate) {
+            $return['date'][] = $startDate->format('m/Y');
+            $return['total'][] = $data->where('date', $startDate->format('Y-m-01'))->count() ? $data->where('date', $startDate->format('Y-m-01'))->first()->total : 0;
+            $startDate->add(new \DateInterval('P1M'));
+        }
+
+        return response()->json($return);
     }
 
     public function medals()

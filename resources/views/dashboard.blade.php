@@ -18,6 +18,14 @@
                     <strong>Sua URL pública: </strong> <a href="{{ route('show', [$user->id, $user->slug]) }}">{{ route('show', [$user->id, $user->slug]) }}</a>
                 </div>
             </div>
+
+            <div class="my-5 bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                <h3 class="font-semibold text-xl text-gray-800 leading-tight">Andamento</h3>
+                <div class="chart-year-container" style="position: relative; width:100%">
+                    <canvas id="chart-year"></canvas>
+                </div>
+            </div>
+
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <form method="POST" action="{{ route('store') }}">
