@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public function styles()
     {
-        return $this->belongsToMany(Style::class);
+        return $this->belongsToMany(Style::class)->withTimestamps();
     }
 
     public function medals()
