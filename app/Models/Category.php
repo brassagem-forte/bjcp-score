@@ -21,4 +21,18 @@ class Category extends Model
         }])->orderBy('categories.id', 'asc');
     }
 
+    public function scopeOrderedMissingWithStyles($query, $id)
+    {
+        return $query->with(['styles' => function ($subQuery) use ($id) {
+            $subQuery->whereNotIn('id', function ($subQuery) use ($id) {
+                $subQuery->select('style_id')->from('style_user')->where('user_id', $id);
+            });
+        }])->orderBy('categories.id', 'asc');
+
+
+            // ->whereDoesntHave('styles', function ($subQuery) use ($id) {
+            //     $subQuery->join('style_user', 'styles.id', '=', 'style_users.style_id')->where('user_id', $id);
+            // });
+    }
+
 }

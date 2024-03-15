@@ -17,12 +17,15 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('/missing', [App\Http\Controllers\Dashboard::class, 'missing'])->name('missing');
 Route::get('/vs', [App\Http\Controllers\Dashboard::class, 'compare'])->name('compare');
 Route::get('/ranking', [App\Http\Controllers\Dashboard::class, 'ranking'])->name('ranking');
 Route::get('/ranking/chart', [App\Http\Controllers\Dashboard::class, 'chart'])->name('chart');
+Route::get('/year/chart/{id?}', [App\Http\Controllers\Dashboard::class, 'yearChart'])->name('yearChart');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Dashboard::class, 'index'])->name('dashboard');
+    Route::get('/medals', [App\Http\Controllers\Dashboard::class, 'medals'])->name('medals');
     Route::put('/store', [App\Http\Controllers\Dashboard::class, 'store'])->name('store');
 });
 

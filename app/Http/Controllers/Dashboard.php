@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Style;
 use App\Models\User;
+use DateTime;
 use Illuminate\Support\Facades\DB;
 
 class Dashboard extends Controller
@@ -17,8 +18,20 @@ class Dashboard extends Controller
         $categories = Category::orderedWithStyles()->get();
         $stylesCount = Style::count();
         $userStyles = $user->styles()->pluck('style_id');
+        $userMedals = $user->medals()->get();
 
-        return view('dashboard', compact('user', 'categories', 'stylesCount', 'userStyles'));
+        return view('dashboard', compact('user', 'categories', 'stylesCount', 'userStyles', 'userMedals'));
+    }
+
+    public function missing()
+    {
+        $user = User::find(\Auth::user()->id);
+        $categories = Category::orderedMissingWithStyles(\Auth::user()->id)->get();
+        $stylesCount = Style::count();
+        $userStyles = $user->styles()->pluck('style_id');
+        $userMedals = $user->medals()->get();
+
+        return view('dashboard', compact('user', 'categories', 'stylesCount', 'userStyles', 'userMedals'));
     }
 
     public function show(Request $request, $userId, $slug)
@@ -48,7 +61,22 @@ class Dashboard extends Controller
              ->orderBy('total', 'desc')
              ->get();
 
-        return view('ranking', compact('users'));
+        $moreBrewed = DB::table('style_user')
+        ->select(DB::raw('styles.name, count(1) as total'))
+        ->join('styles', 'styles.id', 'style_user.style_id')
+        ->orderBy('total', 'desc')
+        ->groupBy('styles.name')
+        ->limit(10)
+        ->get();
+        $lessBrewed = DB::table('style_user')
+        ->select(DB::raw('styles.name, count(1) as total'))
+        ->join('styles', 'styles.id', 'style_user.style_id')
+        ->orderBy('total', 'asc')
+        ->groupBy('styles.name')
+        ->limit(10)
+        ->get();;
+
+        return view('ranking', compact('users', 'moreBrewed', 'lessBrewed'));
     }
 
     public function compare(Request $request)
@@ -84,5 +112,39 @@ class Dashboard extends Controller
             'style' => $data->pluck('name'),
             'count' => $data->pluck('total'),
         ]);
+    }
+
+    public function yearChart($id = null)
+    {
+        if(!$id) {
+            $id = \Auth::user()->id;
+        }
+        $data = DB::table('style_user')
+            ->select(DB::raw('DATE_FORMAT(created_at, "%Y-%m-01") as date, count(1) as total'))
+            ->orderBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-01")'))
+            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-01")'))
+            ->where('user_id', $id)
+            ->get();
+
+        $startDate = new DateTime('2023-01-01');
+        $endDate = new DateTime();
+
+        $return = [
+            'date' => [],
+            'total' => [],
+        ];
+
+        while($startDate < $endDate) {
+            $return['date'][] = $startDate->format('m/Y');
+            $return['total'][] = $data->where('date', $startDate->format('Y-m-01'))->count() ? $data->where('date', $startDate->format('Y-m-01'))->first()->total : 0;
+            $startDate->add(new \DateInterval('P1M'));
+        }
+
+        return response()->json($return);
+    }
+
+    public function medals()
+    {
+        return view('medals');
     }
 }

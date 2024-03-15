@@ -15,9 +15,17 @@
             @endif
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3">
                 <div class="p-6 bg-white ">
-                    <strong>{{ $user->name }}</strong>
+                    <h3 class="text-3xl">{{ $user->name }}</h3>
                 </div>
             </div>
+
+            <div class="my-5 bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                <h3 class="font-semibold text-xl text-gray-800 leading-tight">Andamento</h3>
+                <div class="chart-year-container" style="position: relative; width:100%">
+                    <canvas id="chart-year" data-userid="{{ $user->id }}"></canvas>
+                </div>
+            </div>
+
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <table class="border-collapse w-full">

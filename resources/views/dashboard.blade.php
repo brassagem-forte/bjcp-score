@@ -18,25 +18,47 @@
                     <strong>Sua URL pública: </strong> <a href="{{ route('show', [$user->id, $user->slug]) }}">{{ route('show', [$user->id, $user->slug]) }}</a>
                 </div>
             </div>
+
+            <div class="my-5 bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                <h3 class="font-semibold text-xl text-gray-800 leading-tight">Andamento</h3>
+                <div class="chart-year-container" style="position: relative; width:100%">
+                    <canvas id="chart-year"></canvas>
+                </div>
+            </div>
+
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
+                    <a href="{{request()->routeIs('dashboard') ? route('missing') : route('dashboard')}}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-1 mt-1 text-xl float-right">
+                        @if(request()->routeIs('dashboard'))
+                            Filtrar faltantes
+                        @else
+                            Mostrar todos
+                        @endif
+                    </a>
                     <form method="POST" action="{{ route('store') }}">
                         @method('PUT')
                         @csrf
                         <table class="border-collapse w-full">
                             <tbody>
                                 @foreach($categories as $category)
+                                @if($category->styles->count() > 0)
                                 <tr class="border-b hover:bg-gray-50">
                                     <td colspan="2" class="text-3xl p-2">{{ $category->id }}.{{ $category->name }}</td>
                                 </tr>
                                 @foreach($category->styles as $style)
                                 <tr class="border-b">
-                                    <td class="pl-10 p-2">{{ $style->code }}. {{ $style->name }}</td>
+                                    <td class="pl-10 p-2">
+                                        {{ $style->code }}. {{ $style->name }}
+                                        @foreach($userMedals->where('style_id', $style->id)->all() as $medal)
+                                        {{ $medal->icon }}
+                                        @endforeach
+                                    </td>
                                     <td class="pl-10 text-right pr-2">
                                         <input type="checkbox" name="style[]" value="{{ $style->id }}" @if($userStyles->contains($style->id)) checked="checked" @endif class="rounded text-gray-500 h-6 w-6" />
                                     </td>
                                 </tr>
                                 @endforeach
+                                @endif
                                 @endforeach
                             </tbody>
                             <tfoot>
