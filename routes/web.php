@@ -26,7 +26,7 @@ Route::get('/year/chart/{id?}', [App\Http\Controllers\Dashboard::class, 'yearCha
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Dashboard::class, 'index'])->name('dashboard');
     Route::get('/medals', [App\Http\Controllers\Dashboard::class, 'medals'])->name('medals');
-    Route::put('/store', [App\Http\Controllers\Dashboard::class, 'store'])->name('store');
+    Route::put('/store/{filtered?}', [App\Http\Controllers\Dashboard::class, 'store'])->name('store');
 });
 
 require __DIR__.'/auth.php';

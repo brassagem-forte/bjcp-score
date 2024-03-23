@@ -35,7 +35,7 @@
                             Mostrar todos
                         @endif
                     </a>
-                    <form method="POST" action="{{ route('store') }}">
+                    <form method="POST" action="{{ request()->routeIs('dashboard') ? route('store') : route('store', ['filtered']) }}">
                         @method('PUT')
                         @csrf
                         <table class="border-collapse w-full">

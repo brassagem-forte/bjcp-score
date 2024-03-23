@@ -44,10 +44,15 @@ class Dashboard extends Controller
         return view('show', compact('user', 'categories', 'stylesCount', 'userStyles'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $filtered = false)
     {
         $user = User::find(\Auth::user()->id);
-        $user->styles()->sync($request->get('style'));
+        $styles = $request->get('style');
+        if($filtered){
+            $user->styles()->syncWithoutDetaching($styles);
+        } else {
+            $user->styles()->sync($styles);
+        }
 
         return redirect('dashboard')->with('status', 'Estilos atualizados com sucesso!');
     }
