@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             Modo Vs.
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-4 lg:px-6">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-3">
+            <div class="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 overflow-hidden shadow sm:rounded-lg mb-3">
                 <form method="get" action="{{ route('compare') }}">
                     <select class="m-6" name="user[]">
                         @foreach($users as $user)
@@ -19,13 +19,13 @@
                         <option value="{{ $user->id }}" @if($compareUsers[1]->info->id == $user->id) selected="selected" @endif>{{ $user->name }}</option>
                         @endforeach
                     </select>
-                    <x-button class="mt-0 m-6 text-xl">
+                    <x-secondary-button type="submit" class="mt-0 m-6 text-xl">
                         Comparar
-                    </x-button>
+                    </x-secondary-button>
                 </form>
             </div>
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
+            <div class="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 border-b border-gray-700">
                     <table class="border-collapse w-full">
                         <thead>
                             <tr>
@@ -47,11 +47,11 @@
                         </thead>
                         <tbody>
                             @foreach($categories as $category)
-                            <tr class="border-b hover:bg-gray-50">
-                                <td class="text-3xl p-2">{{ $category->name }}</td>
+                            <tr class="border-b border-gray-500 hover:bg-gray-700">
+                                <td class="text-3xl p-2" colspan="3">{{ $category->name }}</td>
                             </tr>
                             @foreach($category->styles as $style)
-                            <tr class="border-b">
+                            <tr class="border-b border-gray-500 hover:bg-gray-700">
                                 <td class="md:pl-10 p-2">{{ $style->code }}. {{ $style->name }}</td>
                                 @foreach($compareUsers as $user)
                                 <td class="text-center pr-2">
@@ -68,7 +68,7 @@
                                     Total: {{ $stylesCount }}
                                 </td>
                                 @foreach($compareUsers as $user)
-                                <td class="pt-4 pb-4 pl-2 pr-2 text-3xl text-right">
+                                <td class="pt-4 pb-4 pl-2 pr-2 text-3xl text-center">
                                     {{ $user->styles->count() }}
                                 </td>
                                 @endforeach

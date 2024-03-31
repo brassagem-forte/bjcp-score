@@ -14,24 +14,9 @@ class Dashboard extends Controller
 
     public function index()
     {
-        $user = User::find(\Auth::user()->id);
-        $categories = Category::orderedWithStyles()->get();
-        $stylesCount = Style::count();
-        $userStyles = $user->styles()->pluck('style_id');
-        $userMedals = $user->medals()->get();
+        $user = \Auth::user();
 
-        return view('dashboard', compact('user', 'categories', 'stylesCount', 'userStyles', 'userMedals'));
-    }
-
-    public function missing()
-    {
-        $user = User::find(\Auth::user()->id);
-        $categories = Category::orderedMissingWithStyles(\Auth::user()->id)->get();
-        $stylesCount = Style::count();
-        $userStyles = $user->styles()->pluck('style_id');
-        $userMedals = $user->medals()->get();
-
-        return view('dashboard', compact('user', 'categories', 'stylesCount', 'userStyles', 'userMedals'));
+        return view('dashboard', compact('user'));
     }
 
     public function show(Request $request, $userId, $slug)
@@ -42,19 +27,6 @@ class Dashboard extends Controller
         $userStyles = $user->styles()->pluck('style_id');
 
         return view('show', compact('user', 'categories', 'stylesCount', 'userStyles'));
-    }
-
-    public function store(Request $request, $filtered = false)
-    {
-        $user = User::find(\Auth::user()->id);
-        $styles = $request->get('style');
-        if($filtered){
-            $user->styles()->syncWithoutDetaching($styles);
-        } else {
-            $user->styles()->sync($styles);
-        }
-
-        return redirect('dashboard')->with('status', 'Estilos atualizados com sucesso!');
     }
 
     public function ranking(Request $request)
@@ -104,21 +76,6 @@ class Dashboard extends Controller
         return view('compare', compact('users', 'compareUsers', 'categories', 'stylesCount'));
     }
 
-    public function chart()
-    {
-        $data = DB::table('style_user')
-             ->select(DB::raw('styles.name, count(1) as total'))
-             ->join('styles', 'styles.id', 'style_user.style_id')
-             ->orderBy('total', 'desc')
-             ->groupBy('styles.name')
-             ->get();
-
-        return response()->json([
-            'style' => $data->pluck('name'),
-            'count' => $data->pluck('total'),
-        ]);
-    }
-
     public function yearChart($id = null)
     {
         if(!$id) {
@@ -152,4 +109,5 @@ class Dashboard extends Controller
     {
         return view('medals');
     }
+
 }
