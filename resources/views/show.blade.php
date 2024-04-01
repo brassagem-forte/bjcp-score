@@ -25,11 +25,11 @@
                     <table class="border-collapse w-full">
                         <tbody>
                             @foreach($categories as $category)
-                            <tr class="border-b border-gray-500 hover:bg-gray-700">
+                            <tr class="border-b border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-700">
                                 <td colspan="2" class="text-3xl p-2">{{ $category->id }}.{{ $category->name }}</td>
                             </tr>
                             @foreach($category->styles as $style)
-                            <tr class="border-b border-gray-500 hover:bg-gray-700">
+                            <tr class="border-b border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-700">
                                 <td class="pl-10 p-2">{{ $style->code }}. {{ $style->name }}</td>
                                 <td class="pl-10 text-right pr-2">
                                     <input type="checkbox" name="style[]" value="{{ $style->id }}" @if($userStyles->contains($style->id)) checked="checked" @endif disabled="disabled" class="rounded text-gray-500 h-6 w-6" />

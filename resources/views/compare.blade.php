@@ -47,11 +47,11 @@
                         </thead>
                         <tbody>
                             @foreach($categories as $category)
-                            <tr class="border-b border-gray-500 hover:bg-gray-700">
+                            <tr class="border-b border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-700">
                                 <td class="text-3xl p-2" colspan="3">{{ $category->name }}</td>
                             </tr>
                             @foreach($category->styles as $style)
-                            <tr class="border-b border-gray-500 hover:bg-gray-700">
+                            <tr class="border-b border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-700">
                                 <td class="md:pl-10 p-2">{{ $style->code }}. {{ $style->name }}</td>
                                 @foreach($compareUsers as $user)
                                 <td class="text-center pr-2">

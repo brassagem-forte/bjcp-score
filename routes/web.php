@@ -3,8 +3,11 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('ranking');
-});
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    }
+    return view('home');
+})->name('home');
 
 Route::get('/vs', [App\Http\Controllers\Dashboard::class, 'compare'])->name('compare');
 Route::get('/ranking', [App\Http\Controllers\Dashboard::class, 'ranking'])->name('ranking');

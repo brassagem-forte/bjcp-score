@@ -23,7 +23,9 @@ new class extends Component
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <x-application-logo />
+                    <a href="{{ route('home') }}" wire:navigate>
+                        <x-application-logo />
+                    </a>
                 </div>
 
                 <!-- Navigation Links -->

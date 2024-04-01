@@ -74,11 +74,11 @@ new class extends Component
             <tbody>
                 @foreach($categories as $category)
                 @if($category->styles->count() > 0)
-                <tr class="border-b border-gray-500 hover:bg-gray-700">
+                <tr class="border-b border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-700">
                     <td colspan="2" class="text-3xl p-2">{{ $category->id }}.{{ $category->name }}</td>
                 </tr>
                 @foreach($category->styles as $style)
-                <tr class="border-b border-gray-500 hover:bg-gray-700">
+                <tr class="border-b border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-700">
                     <td class="pl-10 p-2">
                         {{ $style->code }}. {{ $style->name }}
                     </td>
