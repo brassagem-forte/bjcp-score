@@ -21,6 +21,7 @@ new #[Layout('layouts.app')] class extends Component
         Session::regenerate();
 
         $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $this->dispatch('theme-updated', theme: auth()->user()->theme);
     }
 }; ?>
 

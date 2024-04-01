@@ -10,6 +10,11 @@ const axiosInstance = axios.create({
             : "https://bjcpscore.brassagemforte.com.br/",
 });
 
+Livewire.on("theme-updated", ({ theme }) => {
+    document.body.classList.remove("dark", "light");
+    document.body.classList.add(theme);
+});
+
 document.addEventListener('livewire:navigated', () => {
     var year = document.getElementById("chart-year");
 
