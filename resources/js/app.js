@@ -20,7 +20,7 @@ document.addEventListener('livewire:navigated', () => {
 
     if (year) {
         var userId = year.dataset.userid ?? "";
-        var color = document.children[0].classList.contains("dark") ? '255, 255, 255' : '0, 0, 0';
+        var color = document.children[0].classList.contains("dark") ? '255, 255, 255' : '100, 100, 100';
         axiosInstance.get("year/chart/" + userId).then(function (response) {
             var chart = new Chart(year, {
                 type: "line",
