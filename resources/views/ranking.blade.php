@@ -12,7 +12,7 @@
                     @foreach($users as $i => $user)
                     <li class="text-{{ 3-$i > 1 ? 3-$i : '' }}xl border-b border-gray-500 p-2">
                         <a href="{{ route('show', [$user->id, Str::slug($user->name)]) }}">
-                        {{ $user->name }}: <span class="md:float-right">{{ $user->total }}</span>
+                        {{ $user->name }} <span class="md:float-right">{{ $user->total }}</span>
                         </a>
                     </li>
                     @endforeach
@@ -25,7 +25,7 @@
                         @foreach($moreBrewed as $i => $style)
                         <li class="text-{{ 3-$i > 1 ? 3-$i : '' }}xl border-b border-gray-500 p-2">
                             <a href="{{ route('show', [$user->id, Str::slug($user->name)]) }}">
-                            {{ $style->name }}: <span class="md:float-right">{{ $style->total }}</span>
+                            {{ $style->name }} <span class="md:float-right">{{ $style->total }}</span>
                             </a>
                         </li>
                         @endforeach
@@ -36,7 +36,7 @@
                     <ol class="list-decimal list-inside">
                         @foreach($lessBrewed as $i => $style)
                         <li class="text-xl border-b border-gray-500 p-2">
-                            {{ $style->name }}: <span class="md:float-right">{{ $style->total }}</span>
+                            {{ $style->name }} <span class="md:float-right">{{ $style->total }}</span>
                         </li>
                         @endforeach
                     </ol>
